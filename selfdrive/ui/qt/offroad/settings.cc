@@ -75,7 +75,7 @@ TogglesPanel::TogglesPanel(SettingsWindow *parent) : ListWidget(parent) {
       "../assets/offroad/icon_metric.png",
     },
     {
-      "Using trailer",
+      "Trailer",
       tr("Using trailer"),
       tr("Driving the car with a trailer. Need to enter the weight of the trailer"),
       "../assets/offroad/icon_metric.png",
@@ -142,6 +142,7 @@ void TogglesPanel::showEvent(QShowEvent *event) {
 void TogglesPanel::updateToggles() {
   auto experimental_mode_toggle = toggles["ExperimentalMode"];
   auto op_long_toggle = toggles["ExperimentalLongitudinalEnabled"];
+  auto trailer_toggle = toggles["Trailer"];
   const QString e2e_description = QString("%1<br>"
                                           "<h4>%2</h4><br>"
                                           "%3<br>"
@@ -170,11 +171,13 @@ void TogglesPanel::updateToggles() {
       // normal description and toggle
       experimental_mode_toggle->setEnabled(true);
       experimental_mode_toggle->setDescription(e2e_description);
+      trailer_toggle->setEnabled(true);
       long_personality_setting->setEnabled(true);
     } else {
       // no long for now
       experimental_mode_toggle->setEnabled(false);
       long_personality_setting->setEnabled(false);
+      trailer_toggle->setEnabled(false);
       params.remove("ExperimentalMode");
 
       const QString unavailable = tr("Experimental mode is currently unavailable on this car since the car's stock ACC is used for longitudinal control.");
