@@ -110,7 +110,7 @@ TogglesPanel::TogglesPanel(SettingsWindow *parent) : ListWidget(parent) {
       });
 
       QObject::connect(toggle, &ParamControl::toggleFlipped, [=](bool state) {
-        params.putBool("OnroadCycleRequested", true);s
+        params.putBool("OnroadCycleRequested", true);
       });
     }
 
