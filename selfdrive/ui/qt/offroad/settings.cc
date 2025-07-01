@@ -74,6 +74,12 @@ TogglesPanel::TogglesPanel(SettingsWindow *parent) : ListWidget(parent) {
       tr("Display speed in km/h instead of mph."),
       "../assets/offroad/icon_metric.png",
     },
+    {
+      "Using trailer",
+      tr("Using trailer"),
+      tr("Driving the car with a trailer. Need to enter the weight of the trailer"),
+      "../assets/offroad/icon_metric.png",
+    },
   };
 
 

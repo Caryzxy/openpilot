@@ -119,6 +119,12 @@ TogglesPanelSP::TogglesPanelSP(SettingsWindow *parent) : TogglesPanel(parent) {
       tr("Display speed in km/h instead of mph."),
       "../assets/offroad/icon_blank.png",
     },
+    {
+      "Trailer",
+      tr("Use Trailer"),
+      tr("Driving with trailer. Need to enter the mass of trailer"),
+      "../assets/offroad/icon_blank.png",
+    },
 #ifdef ENABLE_MAPS
     {
       "NavSettingTime24h",
@@ -225,6 +231,7 @@ void TogglesPanelSP::updateToggles() {
   if (!isVisible()) return;
 
   auto experimental_mode_toggle = toggles["ExperimentalMode"];
+  auto Enable_trailer = toggles["Trailer"];
   auto op_long_toggle = toggles["ExperimentalLongitudinalEnabled"];
   auto custom_stock_long_toggle = toggles["CustomStockLong"];
   auto dec_toggle = toggles["DynamicExperimentalControl"];
@@ -263,6 +270,7 @@ void TogglesPanelSP::updateToggles() {
     if (hasLongitudinalControl(CP)) {
       // normal description and toggle
       experimental_mode_toggle->setEnabled(true);
+      Enable_trailer->setEnabled(true);
       experimental_mode_toggle->setDescription(e2e_description);
       long_personality_setting->setEnabled(true);
       accel_personality_setting->setEnabled(true);
