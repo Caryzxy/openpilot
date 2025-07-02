@@ -84,6 +84,15 @@ TogglesPanel::TogglesPanel(SettingsWindow *parent) : ListWidget(parent) {
     },
   };
 
+  //set the mass entering line for trailer mass
+  mass_enter_button = new ButtonControl(tr("Trailer Mass(KG)"), tr("EDIT"));
+  connect(hiddenNetworkButton, &ButtonControl::clicked, [=]() {
+    QString mass = InputDialog::getText(tr("Enter Mass"), this, "", false, 1,"0");
+    if (!mass.isEmpty()) {
+      mass_enter_button->setValue(QString::fromStdString(mass.toStdString()));
+    }
+  });
+
 
   std::vector<QString> longi_button_texts{tr("Aggressive"), tr("Standard"), tr("Relaxed")};
   long_personality_setting = new ButtonParamControl("LongitudinalPersonality", tr("Driving Personality"),
@@ -121,6 +130,7 @@ TogglesPanel::TogglesPanel(SettingsWindow *parent) : ListWidget(parent) {
     if (param == "DisengageOnAccelerator") {
       addItem(long_personality_setting);
     }
+    addItem(mass_enter_button);
   }
 
   // Toggles with confirmation dialogs
@@ -199,6 +209,9 @@ void TogglesPanel::updateToggles() {
       }
       experimental_mode_toggle->setDescription("<b>" + long_desc + "</b><br><br>" + e2e_description);
     }
+
+    bool trailer_enabled = params.getBool("Trailer");
+    mass_enter_button->setVisible(trailer_enabled);
 
     experimental_mode_toggle->refresh();
   } else {
