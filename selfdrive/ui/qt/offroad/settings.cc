@@ -86,7 +86,7 @@ TogglesPanel::TogglesPanel(SettingsWindow *parent) : ListWidget(parent) {
 
   //set the mass entering line for trailer mass
   mass_enter_button = new ButtonControl(tr("Trailer Mass(KG)"), tr("EDIT"));
-  connect(hiddenNetworkButton, &ButtonControl::clicked, [=]() {
+  connect(mass_enter_button, &ButtonControl::clicked, [=]() {
     QString mass = InputDialog::getText(tr("Enter Mass"), this, "", false, 1,"0");
     if (!mass.isEmpty()) {
       mass_enter_button->setValue(QString::fromStdString(mass.toStdString()));
@@ -130,9 +130,9 @@ TogglesPanel::TogglesPanel(SettingsWindow *parent) : ListWidget(parent) {
     if (param == "DisengageOnAccelerator") {
       addItem(long_personality_setting);
     }
-    addItem(mass_enter_button);
-  }
 
+  }
+  addItem(mass_enter_button);
   // Toggles with confirmation dialogs
 #ifndef SUNNYPILOT
   toggles["ExperimentalMode"]->setActiveIcon("../assets/icons/experimental.svg");
