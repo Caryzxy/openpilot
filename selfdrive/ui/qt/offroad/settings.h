@@ -86,6 +86,8 @@ protected:
   std::map<std::string, ParamControl*> toggles;
   ButtonParamControl *long_personality_setting;
   ButtonControl *mass_enter_button;
+  ButtonControl *Test_button;
+
 
   virtual void updateToggles();
 };

@@ -8,6 +8,7 @@
 
 #include "common/watchdog.h"
 #include "common/util.h"
+#include "common/params.h"          // 🔶 for Params()
 #include "selfdrive/ui/qt/network/networking.h"
 #include "selfdrive/ui/qt/offroad/settings.h"
 #include "selfdrive/ui/qt/qt_window.h"
@@ -86,11 +87,17 @@ TogglesPanel::TogglesPanel(SettingsWindow *parent) : ListWidget(parent) {
 
   //set the mass entering line for trailer mass
   mass_enter_button = new ButtonControl(tr("Trailer Mass(KG)"), tr("EDIT"));
+  Test_button = new ButtonControl(tr("Testing button"), tr("Update"));
   connect(mass_enter_button, &ButtonControl::clicked, [=]() {
     QString mass = InputDialog::getText(tr("Enter Mass"), this, "", false, 1,"0");
     if (!mass.isEmpty()) {
       mass_enter_button->setValue(QString::fromStdString(mass.toStdString()));
+      Params().put("TrailerMass", std::to_string(mass));
     }
+  });
+
+  connect(Test_button, &ButtonControl::clicked, [=]() {
+    Test_button->setValue(QString::fromStdString(Params().get("TrailerMass")));
   });
 
 
@@ -133,6 +140,8 @@ TogglesPanel::TogglesPanel(SettingsWindow *parent) : ListWidget(parent) {
 
   }
   addItem(mass_enter_button);
+  addItem(Test_button);
+
   // Toggles with confirmation dialogs
 #ifndef SUNNYPILOT
   toggles["ExperimentalMode"]->setActiveIcon("../assets/icons/experimental.svg");
