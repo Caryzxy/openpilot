@@ -92,7 +92,7 @@ TogglesPanel::TogglesPanel(SettingsWindow *parent) : ListWidget(parent) {
     QString mass = InputDialog::getText(tr("Enter Mass"), this, "", false, 1,"0");
     if (!mass.isEmpty()) {
       mass_enter_button->setValue(QString::fromStdString(mass.toStdString()));
-      Params().put("TrailerMass", std::to_string(mass));
+      Params().put("TrailerMass", mass.toStdString());
     }
   });
 
