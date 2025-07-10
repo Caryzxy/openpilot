@@ -97,7 +97,11 @@ TogglesPanel::TogglesPanel(SettingsWindow *parent) : ListWidget(parent) {
   });
 
   connect(Test_button, &ButtonControl::clicked, [=]() {
-    Test_button->setValue(QString::fromStdString(Params().getBool("Trailer")));
+    if(Params().getBool("Trailer")) {
+    Test_button->setValue(QString::fromStdString(Params().get("TrailerMass")));
+    } else {
+      Test_button->setValue("0");
+    }
   });
 
 
