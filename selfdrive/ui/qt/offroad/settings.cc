@@ -97,7 +97,7 @@ TogglesPanel::TogglesPanel(SettingsWindow *parent) : ListWidget(parent) {
   });
 
   connect(Test_button, &ButtonControl::clicked, [=]() {
-    Test_button->setValue(QString::fromStdString(Params().getbool("Trailer")));
+    Test_button->setValue(QString::fromStdString(Params().getBool("Trailer")));
   });
 
 
