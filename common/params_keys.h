@@ -79,7 +79,7 @@ inline static std::unordered_map<std::string, uint32_t> keys = {
     {"LocationFilterInitialState", PERSISTENT},
     {"LongitudinalManeuverMode", CLEAR_ON_MANAGER_START | CLEAR_ON_OFFROAD_TRANSITION},
     {"LongitudinalPersonality", PERSISTENT | BACKUP},
-    {"TrailerMass",          PERSISTENT | BACKUP},   // 🚚 weight in kg
+    {"TrailerMass", PERSISTENT | BACKUP},   // 🚚 weight in kg
     {"NetworkMetered", PERSISTENT},
     {"ObdMultiplexingChanged", CLEAR_ON_MANAGER_START | CLEAR_ON_ONROAD_TRANSITION},
     {"ObdMultiplexingEnabled", CLEAR_ON_MANAGER_START | CLEAR_ON_ONROAD_TRANSITION},
