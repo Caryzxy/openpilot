@@ -99,16 +99,18 @@ def desired_follow_distance(v_ego, v_lead, t_follow=None):
   if Trailer_mass <= 100:
     Trailer_mass_adjustment = 0
   elif Trailer_mass <= 500:
-    Trailer_mass_adjustment = 0.5
+    Trailer_mass_adjustment = 1
   elif Trailer_mass <= 1000:
-    Trailer_mass_adjustment = 1.0
+    Trailer_mass_adjustment = 2
   else:
-    Trailer_mass_adjustment = 1.5
+    Trailer_mass_adjustment = 3
 
   if not Trailer_enabled:
     Trailer_mass_adjustment = 0
 
-  t_follow += Trailer_mass_adjustment
+  params.put("TrailerMassAdjustment", str(Trailer_mass_adjustment))
+
+  t_follow = Trailer_mass_adjustment + t_follow
   return get_safe_obstacle_distance(v_ego, t_follow) - get_stopped_equivalence_factor(v_lead)
 
 
