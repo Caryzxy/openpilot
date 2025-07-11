@@ -16,6 +16,8 @@ else:
   from openpilot.selfdrive.controls.lib.longitudinal_mpc_lib.c_generated_code.acados_ocp_solver_pyx import AcadosOcpSolverCython
 
 from casadi import SX, vertcat
+from openpilot.common.params import Params
+
 
 MODEL_NAME = 'long'
 LONG_MPC_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -75,7 +77,7 @@ def get_T_FOLLOW(personality=log.LongitudinalPersonality.standard):
   elif personality==log.LongitudinalPersonality.standard:
     return 1.45
   elif personality==log.LongitudinalPersonality.aggressive:
-    return 1.25 *3
+    return 1.25
   else:
     raise NotImplementedError("Longitudinal personality not supported")
 
@@ -88,6 +90,25 @@ def get_safe_obstacle_distance(v_ego, t_follow):
 def desired_follow_distance(v_ego, v_lead, t_follow=None):
   if t_follow is None:
     t_follow = get_T_FOLLOW()
+
+  params = Params()
+  Trailer_enabled = params.getBool("Trailer")
+  Trailer_mass = params.get("TrailerMass")
+  Trailer_mass = int(Trailer_mass.decode("utf-8"))
+  Trailer_mass_adjustment = 0
+  if Trailer_mass <= 100:
+    Trailer_mass_adjustment = 0
+  elif Trailer_mass <= 500:
+    Trailer_mass_adjustment = 0.5
+  elif Trailer_mass <= 1000:
+    Trailer_mass_adjustment = 1.0
+  else:
+    Trailer_mass_adjustment = 1.5
+
+  if not Trailer_enabled:
+    Trailer_mass_adjustment = 0
+
+  t_follow += Trailer_mass_adjustment
   return get_safe_obstacle_distance(v_ego, t_follow) - get_stopped_equivalence_factor(v_lead)
 
 
