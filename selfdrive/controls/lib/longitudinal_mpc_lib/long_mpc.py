@@ -92,7 +92,7 @@ def desired_follow_distance(v_ego, v_lead, t_follow=None):
     t_follow = get_T_FOLLOW()
 
   params = Params()
-  Trailer_enabled = params.getBool("Trailer")
+  Trailer_enabled = params.get_bool("Trailer")
   Trailer_mass = params.get("TrailerMass")
   Trailer_mass = int(Trailer_mass.decode("utf-8"))
   Trailer_mass_adjustment = 0
@@ -108,7 +108,7 @@ def desired_follow_distance(v_ego, v_lead, t_follow=None):
   if not Trailer_enabled:
     Trailer_mass_adjustment = 0
 
-  params.put("TrailerMassAdjustment", str(Trailer_mass_adjustment))
+  params.put_nonblocking("TrailerMassAdjustment", str(Trailer_mass_adjustment))
 
   t_follow = Trailer_mass_adjustment + t_follow
   return get_safe_obstacle_distance(v_ego, t_follow) - get_stopped_equivalence_factor(v_lead)
