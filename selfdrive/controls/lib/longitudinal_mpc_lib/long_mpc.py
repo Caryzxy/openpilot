@@ -85,11 +85,6 @@ def get_stopped_equivalence_factor(v_lead):
   return (v_lead**2) / (2 * COMFORT_BRAKE)
 
 def get_safe_obstacle_distance(v_ego, t_follow):
-  return (v_ego**2) / (2 * COMFORT_BRAKE) + t_follow * v_ego + STOP_DISTANCE
-
-def desired_follow_distance(v_ego, v_lead, t_follow=None):
-  if t_follow is None:
-    t_follow = get_T_FOLLOW()
 
   params = Params()
   Trailer_enabled = params.get_bool("Trailer")
@@ -111,6 +106,13 @@ def desired_follow_distance(v_ego, v_lead, t_follow=None):
   params.put_nonblocking("TrailerMassAdjustment", str(Trailer_mass_adjustment))
 
   t_follow = Trailer_mass_adjustment + t_follow
+  return (v_ego**2) / (2 * COMFORT_BRAKE) + t_follow * v_ego + STOP_DISTANCE
+
+def desired_follow_distance(v_ego, v_lead, t_follow=None):
+  if t_follow is None:
+    t_follow = get_T_FOLLOW()
+
+
   return get_safe_obstacle_distance(v_ego, t_follow) - get_stopped_equivalence_factor(v_lead)
 
 
