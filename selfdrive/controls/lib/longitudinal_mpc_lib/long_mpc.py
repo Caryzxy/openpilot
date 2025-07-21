@@ -103,7 +103,7 @@ def get_T_FOLLOW(personality=log.LongitudinalPersonality.standard):
   elif personality==log.LongitudinalPersonality.standard:
     return 1.45 + Trailer_mass_adjustment
   elif personality==log.LongitudinalPersonality.aggressive:
-    return 1.25 + Trailer_mass_adjustment
+    return 1.00 + Trailer_mass_adjustment
   else:
     raise NotImplementedError("Longitudinal personality not supported")
 
