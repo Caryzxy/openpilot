@@ -78,6 +78,7 @@ def get_T_FOLLOW(personality=log.LongitudinalPersonality.standard):
   Trailer_mass = params.get("TrailerMass")
   Trailer_mass = int(Trailer_mass.decode("utf-8"))
   Trailer_mass_adjustment = 0
+  """
   if Trailer_mass <= 100:
     Trailer_mass_adjustment = 0
   elif Trailer_mass <= 500:
@@ -90,6 +91,11 @@ def get_T_FOLLOW(personality=log.LongitudinalPersonality.standard):
   if not Trailer_enabled:
     Trailer_mass_adjustment = 0
 
+  params.put_nonblocking("TrailerMassAdjustment", str(Trailer_mass_adjustment))
+  """
+  Trailer_mass_adjustment = Trailer_mass * 0.25
+  if not Trailer_enabled:
+    Trailer_mass_adjustment = 0
   params.put_nonblocking("TrailerMassAdjustment", str(Trailer_mass_adjustment))
 
   if personality==log.LongitudinalPersonality.relaxed:
